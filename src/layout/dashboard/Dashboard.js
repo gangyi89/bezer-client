@@ -56,6 +56,8 @@ const Dashboard = (props) => {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  console.log("dashboard render");
+
   return (
     <div className={classes.root}>
       <CssBaseline />
