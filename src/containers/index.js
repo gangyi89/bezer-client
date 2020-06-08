@@ -1,5 +1,5 @@
 import Landing from "./Landing/Landing";
-import Login from "./Login/Login";
+import Login from "./SignIn/SignIn";
 import Select from "./Select/Select";
 import Stages from "./Stages/Stages";
 import Example from "./Locations/Example";

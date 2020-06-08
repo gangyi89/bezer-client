@@ -20,7 +20,7 @@ const Select = () => {
 
   return (
     <>
-      <AppBar />
+      <AppBar login />
       <div className={classes.content}>
         <div className={classes.toolbar} />
         <h1>Select Screen</h1>
