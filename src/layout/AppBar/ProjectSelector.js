@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
 const projects = [
   { key: "project1", text: "Project 1" },
   { key: "project2", text: "Project 2" },
+  { key: "project3", text: "Project 3" },
 ];
 
 const ProjectSelector = () => {
