@@ -3,8 +3,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import PrimaryAppBar from "../primaryAppBar/PrimaryAppBar";
-import Sidedrawer from "./sidedrawer/Sidedrawer";
+import AppBar from "../AppBar/AppBar";
+import Sidedrawer from "./Sidedrawer/Sidedrawer";
 
 const drawerWidth = 240;
 
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    //backgroundColor: "#000000",
   },
 }));
 
@@ -60,7 +59,7 @@ const Dashboard = (props) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <PrimaryAppBar onClose={handleDrawerToggle} />
+      <AppBar onClose={handleDrawerToggle} project login />
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">

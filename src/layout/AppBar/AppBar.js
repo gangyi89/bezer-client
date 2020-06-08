@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,6 +13,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ProjectSelector from "./ProjectSelector";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import Logo from "../../components/Logo/Logo";
 
 const drawerWidth = 240;
 
@@ -27,13 +29,14 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+  },
+  appBarBg: {
     backgroundColor: "#f6f7f9",
   },
   grow: {
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
@@ -151,47 +154,63 @@ const PrimaryAppBar = (props) => {
   return (
     <>
       <ElevationScroll {...props}>
-        <AppBar position="fixed" className={classes.appBar}>
+        <AppBar
+          position="fixed"
+          className={
+            props.project
+              ? [classes.appBar, classes.appBarBg].join(" ")
+              : classes.appBarBg
+          }
+        >
           <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="default"
-              aria-label="open drawer"
-              onClick={props.onClose}
-            >
-              <MenuIcon />
-            </IconButton>
-            <ProjectSelector />
+            {props.project ? (
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="default"
+                aria-label="open drawer"
+                onClick={props.onClose}
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : null}
+            {props.project ? <ProjectSelector /> : <Logo />}
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 3 new notifications" color="default">
-                <Badge badgeContent={3} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="default"
-              >
-                <AccountCircle />
-              </IconButton>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="default"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div>
+            {props.login ? (
+              <div className={classes.sectionDesktop}>
+                <IconButton
+                  aria-label="show 3 new notifications"
+                  color="default"
+                >
+                  <Badge badgeContent={3} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="default"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            ) : null}
+            {props.login ? (
+              <div className={classes.sectionMobile}>
+                <IconButton
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleMobileMenuOpen}
+                  color="default"
+                >
+                  <MoreIcon />
+                </IconButton>
+              </div>
+            ) : null}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
@@ -201,4 +220,8 @@ const PrimaryAppBar = (props) => {
   );
 };
 
+PrimaryAppBar.protoTypes = {
+  project: PropTypes.Boolean,
+  login: PropTypes.Boolean,
+};
 export default PrimaryAppBar;

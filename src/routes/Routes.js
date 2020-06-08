@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "../layout/dashboard/Dashboard";
-import { Landing, Login, Select, Stages, Example } from "../pages";
+import { Landing, Login, Select, Stages, Example } from "../containers";
 
 class Routes extends Component {
   render() {

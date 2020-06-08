@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainHeaderBar = (props) => {
+const HeaderBar = (props) => {
   const classes = useStyles();
 
   return (
@@ -23,4 +23,4 @@ const MainHeaderBar = (props) => {
   );
 };
 
-export default MainHeaderBar;
+export default HeaderBar;

@@ -8,7 +8,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import Box from "@material-ui/core/Box";
 import { ListSubheader } from "@material-ui/core";
+
+import Logo from "../../../components/Logo/Logo";
 
 const manageSection = [
   { key: "stages", text: "Stages" },
@@ -30,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   subHeaderRoot: {
     fontSize: theme.typography.htmlFontSize,
   },
+  logo: {
+    paddingLeft: 14,
+  },
 }));
 const Sidedrawer = (props) => {
   const classes = useStyles();
@@ -37,7 +43,11 @@ const Sidedrawer = (props) => {
 
   return (
     <div>
-      <div className={classes.toolbar} />
+      <Box className={classes.toolbar} display="flex" alignItems="center">
+        <div className={classes.logo}>
+          <Logo />
+        </div>
+      </Box>
       <Divider />
       <List>
         <ListSubheader component="div" className={classes.subHeaderRoot}>

@@ -1,10 +1,10 @@
 import React from "react";
-import MainHeaderBar from "../../components/pageLayout/MainHeaderBar";
+import HeaderBar from "../../components/HeaderBar/HeaderBar";
 
 const Stages = () => {
   return (
     <>
-      <MainHeaderBar text="Stages" />
+      <HeaderBar text="Stages" />
     </>
   );
 };
