@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import AddIcon from "@material-ui/icons/Add";
+import HomeIcon from "@material-ui/icons/Home";
 import { CardActionArea } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -24,14 +24,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddProjectCard = () => {
+const ProjectCard = (props) => {
   const classes = useStyles();
+
+  console.log("project card renders");
 
   return (
     <Card className={classes.root}>
       <CardActionArea
         component={Link}
-        to="/dashboard/project1"
+        to={`/dashboard/${props.project.key}`}
         className={classes.cardActionArea}
       >
         <Box
@@ -41,9 +43,9 @@ const AddProjectCard = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <AddIcon color="primary" className={classes.icon} />
+          <HomeIcon color="primary" className={classes.icon} />
           <Typography variant="body1" component="h2" color="primary">
-            <Box fontWeight="500">Add Project</Box>
+            <Box fontWeight="500">{props.project.text}</Box>
           </Typography>
         </Box>
       </CardActionArea>
@@ -51,4 +53,4 @@ const AddProjectCard = () => {
   );
 };
 
-export default AddProjectCard;
+export default React.memo(ProjectCard);

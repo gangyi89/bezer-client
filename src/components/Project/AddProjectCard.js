@@ -3,9 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import HomeIcon from "@material-ui/icons/Home";
+import AddIcon from "@material-ui/icons/Add";
 import { CardActionArea } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,16 +23,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProjectCard = (props) => {
+const AddProjectCard = (props) => {
   const classes = useStyles();
-
-  console.log("project card renders");
 
   return (
     <Card className={classes.root}>
       <CardActionArea
-        component={Link}
-        to={`/dashboard/${props.project.key}`}
+        onClick={props.handleClickOpen}
         className={classes.cardActionArea}
       >
         <Box
@@ -43,9 +39,9 @@ const ProjectCard = (props) => {
           justifyContent="center"
           alignItems="center"
         >
-          <HomeIcon color="primary" className={classes.icon} />
+          <AddIcon color="primary" className={classes.icon} />
           <Typography variant="body1" component="h2" color="primary">
-            <Box fontWeight="500">{props.project.text}</Box>
+            <Box fontWeight="500">Add Project</Box>
           </Typography>
         </Box>
       </CardActionArea>
@@ -53,4 +49,4 @@ const ProjectCard = (props) => {
   );
 };
 
-export default ProjectCard;
+export default AddProjectCard;

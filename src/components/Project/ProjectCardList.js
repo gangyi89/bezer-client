@@ -1,15 +1,9 @@
 import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import AddProjectCard from "../../components/ProjectCard/AddProjectCard";
-import ProjectCard from "../../components/ProjectCard/ProjectCard";
+import AddProjectCard from "./AddProjectCard";
+import ProjectCard from "./ProjectCard";
 import Grid from "@material-ui/core/Grid";
-
-const projects = [
-  { key: "project1", text: "Project 1" },
-  { key: "project2", text: "Project 2" },
-  { key: "project3", text: "Project 3" },
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProjectCardList = () => {
+const ProjectCardList = (props) => {
   const classes = useStyles();
 
   console.log("project card list render");
@@ -27,9 +21,9 @@ const ProjectCardList = () => {
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item>
-        <AddProjectCard />
+        <AddProjectCard handleClickOpen={props.handleClickOpen} />
       </Grid>
-      {projects.map((project) => (
+      {props.projects.map((project) => (
         <Grid key={project.key} item>
           <ProjectCard project={project} />
         </Grid>
