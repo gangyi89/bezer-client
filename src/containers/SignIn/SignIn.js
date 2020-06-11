@@ -16,8 +16,6 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 
 import Button from "../../components/Button/Button";
 
-import { useHistory } from "react-router-dom";
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -60,7 +58,6 @@ const SignIn = (props) => {
   console.log(`${email} ${password}`);
 
   const classes = useStyles();
-  let history = useHistory();
 
   const updateEmail = (event) => {
     setEmail(event.target.value);
@@ -71,8 +68,7 @@ const SignIn = (props) => {
   };
 
   const redirectUser = () => {
-    props.submitHandler({ email, password, history });
-    //history.replace("/dashboard");
+    props.submitHandler({ email, password });
   };
   return (
     <>

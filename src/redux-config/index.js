@@ -3,6 +3,9 @@ import { persistStore, persistReducer } from "redux-persist";
 import createSagaMiddleware from "redux-saga";
 import storage from "redux-persist/lib/storage";
 
+import { createBrowserHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
+
 import {
   seamlessImmutableReconciler,
   seamlessImmutableTransformCreator,
@@ -14,6 +17,7 @@ import rootSagas from "../sagas";
 
 import { Provider } from "react-redux";
 
+const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 const transformerConfig = {
@@ -32,11 +36,12 @@ const persistConfig = {
   transforms: [seamlessImmutableTransformCreator(transformerConfig)],
 };
 
-const pReducer = persistReducer(persistConfig, rootReducer());
+const pReducer = persistReducer(persistConfig, rootReducer(history));
 
 const middleware = [
   createLogger({ collapsed: (getState, action, logEntry) => !logEntry.error }),
   sagaMiddleware,
+  routerMiddleware(history),
 ];
 const enhancers = compose(
   applyMiddleware(...middleware),
@@ -51,4 +56,4 @@ const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSagas);
 
-export { Provider, store, persistor };
+export { Provider, store, history, persistor };

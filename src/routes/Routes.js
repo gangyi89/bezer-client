@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux-config";
+import { Route, Switch } from "react-router-dom";
 import Dashboard from "../layout/dashboard/Dashboard";
 import { Landing, Login, Projects, Stages, Example } from "../containers";
 
 class Routes extends Component {
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <Route path="/login">
           <Login />
         </Route>
@@ -28,7 +30,7 @@ class Routes extends Component {
         <Route exact path="/">
           <Landing />
         </Route>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }

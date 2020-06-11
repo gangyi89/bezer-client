@@ -1,8 +1,7 @@
 import { put, call } from "redux-saga/effects";
 import { signIn, config } from "../../services/cognito";
+import { replace } from "connected-react-router";
 import Logger from "../../helpers/Logger";
-// import API from "../apis/endpoints";
-// import FetchHelper from "../apis/fetchHelper";
 import { actions } from "../../stores";
 
 const logger = Logger.create("login saga");
@@ -12,7 +11,7 @@ const logger = Logger.create("login saga");
 
 export default function* signin({ payload }) {
   try {
-    const { email: username, password, history } = payload;
+    const { email: username, password } = payload;
 
     config.set({
       region: "ap-southeast-1",
@@ -26,8 +25,7 @@ export default function* signin({ payload }) {
     const result = yield call(signIn, username, password);
     logger.info("PRINT RESULTS", result);
     yield put(actions.auth.setUserSession(result));
-    history.replace("/dashboard");
-    yield call([history, history.push], "/dashboard");
+    yield put(replace("/dashboard"));
   } catch ({ message }) {
     yield put(actions.auth.setSignInError(message));
   } finally {
