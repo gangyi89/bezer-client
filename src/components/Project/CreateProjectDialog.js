@@ -34,7 +34,8 @@ const FormDialog = (props) => {
           <Button onClick={props.handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={props.handleClose} color="primary">
+          {/* <Button onClick={props.handleClose} color="primary"> */}
+          <Button onClick={props.onSubmit} color="primary">
             Create
           </Button>
         </DialogActions>

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Select = () => {
+const Select = (props) => {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -40,6 +40,10 @@ const Select = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const onSubmit = () => {
+    props.createProject({ name: "test" });
   };
 
   return (
@@ -57,7 +61,11 @@ const Select = () => {
             projects={projects}
           />
         </div>
-        <CreateProjectDialog handleClose={handleClose} open={open} />
+        <CreateProjectDialog
+          handleClose={handleClose}
+          open={open}
+          onSubmit={onSubmit}
+        />
       </Container>
     </>
   );
