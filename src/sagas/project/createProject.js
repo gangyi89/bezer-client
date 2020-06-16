@@ -1,5 +1,6 @@
 import { put, call } from "redux-saga/effects";
 import { createProjectApi } from "../../services/apis";
+import apiWrapper from "../../services/apis/apiWrapper";
 // import { replace } from "connected-react-router";
 import Logger from "../../helpers/Logger";
 import { actions } from "../../stores";
@@ -12,11 +13,14 @@ const logger = Logger.create("login saga");
 export default function* createProject({ payload }) {
   try {
     const { name } = payload;
+    const body = { name: name };
     yield put(actions.project.setCreateProjectLoading(true));
     yield put(actions.project.setCreateProjectError(""));
-    const result = yield call(createProjectApi, { name: name });
+    const result = yield call(apiWrapper, {
+      api: createProjectApi,
+      body,
+    });
     logger.info("PRINT RESULTS", result);
-    yield put(actions.project.setProjects(result));
   } catch (e) {
     yield put(actions.project.setCreateProjectError(e.message));
   } finally {

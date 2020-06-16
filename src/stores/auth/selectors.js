@@ -5,8 +5,14 @@ const storeName = "auth";
 export const getAuthKey = R.pathOr(undefined, [
   storeName,
   "userSession",
-  "accessToken",
+  "idToken",
   "jwtToken",
+]);
+export const getRefreshToken = R.pathOr(undefined, [
+  storeName,
+  "userSession",
+  "refreshToken",
+  "token",
 ]);
 export const getSignInError = R.pathOr(undefined, [
   storeName,

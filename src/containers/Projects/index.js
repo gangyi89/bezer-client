@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { actions, selectors } from "../../stores";
+import { actions } from "../../stores";
 
 import Projects from "./Projects";
 

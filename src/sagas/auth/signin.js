@@ -1,5 +1,5 @@
 import { put, call } from "redux-saga/effects";
-import { signIn, config } from "../../services/cognito";
+import { signIn } from "../../services/cognito";
 import { replace } from "connected-react-router";
 import Logger from "../../helpers/Logger";
 import { actions } from "../../stores";
@@ -12,13 +12,6 @@ const logger = Logger.create("login saga");
 export default function* signin({ payload }) {
   try {
     const { email: username, password } = payload;
-
-    config.set({
-      region: "ap-southeast-1",
-      IdentityPoolId: "",
-      UserPoolId: "ap-southeast-1_ME7Urx1e3",
-      ClientId: "77sufqgpreo5qnvtbklaovtrqm",
-    });
 
     yield put(actions.auth.setSignInLoading(true));
     yield put(actions.auth.setSignInError(""));

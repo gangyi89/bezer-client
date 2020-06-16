@@ -1,41 +1,41 @@
-import { Config, CognitoIdentityCredentials } from 'aws-sdk'
+import { Config, CognitoIdentityCredentials } from "aws-sdk";
 
-import { CognitoUserPool } from 'amazon-cognito-identity-js'
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 
-let appConfig
-let userPool
-let currentUser
+let appConfig;
+let userPool;
+let currentUser;
 
-export const set = config => {
-  appConfig = config
+export const set = (config) => {
+  appConfig = config;
 
-  Config.region = appConfig.region
+  Config.region = appConfig.region;
   Config.credentials = new CognitoIdentityCredentials({
-    IdentityPoolId: appConfig.IdentityPoolId
-  })
+    IdentityPoolId: appConfig.IdentityPoolId,
+  });
 
   userPool = new CognitoUserPool({
     UserPoolId: appConfig.UserPoolId,
-    ClientId: appConfig.ClientId
-  })
-}
+    ClientId: appConfig.ClientId,
+  });
+};
 
 export const get = () => {
-  return appConfig
-}
+  return appConfig;
+};
 
 export const getUserPool = () => {
-  return userPool
-}
+  return userPool;
+};
 
 export const getUser = () => {
-  return userPool.getCurrentUser()
-}
+  return userPool.getCurrentUser();
+};
 
-export const setCurrentUserSession = user => {
-  currentUser = user
-}
+export const setCurrentUserSession = (user) => {
+  currentUser = user;
+};
 
 export const getCurrentUserSession = () => {
-  return currentUser
-}
+  return currentUser;
+};
