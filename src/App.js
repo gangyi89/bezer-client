@@ -2,12 +2,16 @@ import React from "react";
 import Routes from "./routes/Routes";
 import { config } from "./services/cognito";
 
+const region = process.env.REACT_APP_COGNITO_REGION;
+const userpoolId = process.env.REACT_APP_COGNITO_USERPOOLID;
+const clientId = process.env.REACT_APP_COGNITO_CLIENTID;
+
 function App() {
   config.set({
-    region: "ap-southeast-1",
+    region: region,
     IdentityPoolId: "",
-    UserPoolId: "ap-southeast-1_ME7Urx1e3",
-    ClientId: "77sufqgpreo5qnvtbklaovtrqm",
+    UserPoolId: userpoolId,
+    ClientId: clientId,
   });
   return <Routes />;
 }

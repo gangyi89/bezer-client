@@ -1,9 +1,12 @@
 import { Types } from "./actions";
 
+import Jwt from "jsonwebtoken";
+
 import Immutable from "seamless-immutable";
 
 const initialState = Immutable({
   userSession: {},
+  userDetails: {},
 
   signInLoadingError: "",
   signInLoadingStatus: false,
@@ -15,8 +18,10 @@ const initialState = Immutable({
 function authReducer(state = initialState, action) {
   switch (action.type) {
     case Types.SET_USER_SESSION:
+      const decoded = Jwt.decode(action.payload.idToken.jwtToken);
       return state.merge({
         userSession: action.payload,
+        userDetails: decoded,
       });
     case Types.SET_SIGNIN_LOADING:
       return state.set("signInLoadingStatus", action.payload);

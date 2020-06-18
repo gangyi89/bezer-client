@@ -1,11 +1,8 @@
 import { put, call } from "redux-saga/effects";
 import { createProjectApi } from "../../services/apis";
 import apiWrapper from "../../services/apis/apiWrapper";
-// import { replace } from "connected-react-router";
-import Logger from "../../helpers/Logger";
+import { push } from "connected-react-router";
 import { actions } from "../../stores";
-
-const logger = Logger.create("login saga");
 
 //User login may fail die to user new password required
 //https://stackoverflow.com/questions/40287012/how-to-change-user-status-force-change-password
@@ -20,7 +17,7 @@ export default function* createProject({ payload }) {
       api: createProjectApi,
       body,
     });
-    logger.info("PRINT RESULTS", result);
+    yield put(push(`/dashboard/${result.id}`));
   } catch (e) {
     yield put(actions.project.setCreateProjectError(e.message));
   } finally {

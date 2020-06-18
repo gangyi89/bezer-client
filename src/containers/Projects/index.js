@@ -1,11 +1,22 @@
 import { connect } from "react-redux";
 
-import { actions } from "../../stores";
+import { actions, selectors } from "../../stores";
 
 import Projects from "./Projects";
 
+const mapStateToProps = (state) => ({
+  createProjectIsLoading: selectors.project.createProjectLoading(state),
+  createProjectError: selectors.project.createProjectError(state),
+  getProjectLoading: selectors.project.getProjectLoading(state),
+  getProjectError: selectors.project.getProjectError(state),
+  projects: selectors.project.projects(state),
+});
 const mapDispatchToProps = (dispatch) => ({
-  createProject: (payload) => dispatch(actions.project.createProject(payload)),
+  createProjectHandler: (payload) =>
+    dispatch(actions.project.createProject(payload)),
+  getProjectsHandler: () => dispatch(actions.project.getProjects()),
+  updateCurrentProjectHandler: (payload) =>
+    dispatch(actions.project.updateCurrentProject(payload)),
 });
 
-export default connect(null, mapDispatchToProps)(Projects);
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);

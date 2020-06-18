@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -101,4 +101,14 @@ PrimaryAppBar.protoTypes = {
   project: PropTypes.Boolean,
   login: PropTypes.Boolean,
 };
-export default PrimaryAppBar;
+
+function areEqual(prevProps, nextProps) {
+  // only update if a card was added or removed
+  return (
+    prevProps.project === nextProps.project &&
+    prevProps.login === nextProps.login
+  );
+}
+
+export default memo(PrimaryAppBar, areEqual);
+//export default PrimaryAppBar;

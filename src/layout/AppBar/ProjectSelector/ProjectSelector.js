@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -12,13 +13,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const projects = [
-  { key: "project1", text: "Project 1" },
-  { key: "project2", text: "Project 2" },
-  { key: "project3", text: "Project 3" },
-];
+// const projects = [
+//   { key: "project1", text: "Project 1" },
+//   { key: "project2", text: "Project 2" },
+//   { key: "project3", text: "Project 3" },
+// ];
 
-const ProjectSelector = () => {
+const ProjectSelector = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -30,8 +31,9 @@ const ProjectSelector = () => {
   };
 
   const classes = useStyles();
-  let { id } = useParams();
-  const currentProject = projects.find((e) => e.key === id).text;
+
+  const currentProject = props.currentProject.name;
+  const projects = props.projects;
 
   return (
     <>
@@ -53,17 +55,22 @@ const ProjectSelector = () => {
       >
         {projects.map((project) => (
           <MenuItem
-            key={project.key}
+            key={project.id}
             onClick={handleClose}
             component={Link}
-            to={`/dashboard/${project.key}`}
+            to={`/dashboard/${project.id}`}
           >
-            {project.text}
+            {project.name}
           </MenuItem>
         ))}
       </Menu>
     </>
   );
+};
+
+ProjectSelector.propTypes = {
+  currentProject: PropTypes.object.isRequired,
+  projects: PropTypes.array.isRequired,
 };
 
 export default ProjectSelector;

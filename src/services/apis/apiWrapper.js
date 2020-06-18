@@ -7,7 +7,7 @@ import { refreshToken } from "../cognito";
 
 import commonErrorHandler from "./commonErrorHandler";
 
-function* apiWrapper({ api, body }) {
+function* apiWrapper({ api, body, params, path }) {
   const authKey = yield select(selectors.auth.getAuthKey);
 
   const headers = {
@@ -16,8 +16,7 @@ function* apiWrapper({ api, body }) {
   };
 
   try {
-    var result = yield call(api, { body, headers });
-    console.log(result);
+    var result = yield call(api, { body, headers, params, path });
   } catch (error) {
     const statusCode = error.response.status;
     const message = error.response.data.message;
@@ -25,17 +24,14 @@ function* apiWrapper({ api, body }) {
     if (statusCode === 401 && message === "The incoming token has expired") {
       // do something
       const token = yield select(selectors.auth.getRefreshToken);
+      const username = yield select(selectors.auth.getUserName);
       try {
-        const refreshTokenResult = yield call(
-          refreshToken,
-          "gangyi89@gmail.com",
-          token
-        );
-        console.log("result");
+        const refreshTokenResult = yield call(refreshToken, username, token);
         yield put(actions.auth.setUserSession(refreshTokenResult));
       } catch (refreshTokenError) {
         //refresh token failed && redirecting user to login
         yield put(replace("/login"));
+        return;
       }
       try {
         //re-attampt api with new authKey
@@ -44,7 +40,7 @@ function* apiWrapper({ api, body }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${newAuthKey}`,
         };
-        const reattemptResult = yield call(api, { body, headers });
+        const reattemptResult = yield call(api, { body, headers, path });
         console.log(reattemptResult);
         return yield reattemptResult.data;
       } catch (error) {

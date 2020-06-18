@@ -11,7 +11,7 @@ import {
   seamlessImmutableTransformCreator,
 } from "redux-persist-seamless-immutable";
 
-import { createLogger } from "redux-logger";
+//import { createLogger } from "redux-logger";
 import { rootReducer } from "../stores";
 import rootSagas from "../sagas";
 
@@ -22,11 +22,10 @@ const sagaMiddleware = createSagaMiddleware();
 
 const transformerConfig = {
   whitelistPerReducer: {
-    auth: ["userSession"],
+    auth: ["userSession", "userDetails"],
+    project: ["projects", "currentProject"],
   },
-  blacklistPerReducer: {
-    //indicate which one to remove
-  },
+  blacklistPerReducer: {},
 };
 
 const persistConfig = {
@@ -39,7 +38,7 @@ const persistConfig = {
 const pReducer = persistReducer(persistConfig, rootReducer(history));
 
 const middleware = [
-  createLogger({ collapsed: (getState, action, logEntry) => !logEntry.error }),
+  // createLogger({ collapsed: (getState, action, logEntry) => !logEntry.error }),
   sagaMiddleware,
   routerMiddleware(history),
 ];

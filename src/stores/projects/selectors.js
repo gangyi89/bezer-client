@@ -1,25 +1,29 @@
 import * as R from "ramda";
 
-const storeName = "auth";
+const storeName = "project";
 
-export const getAuthKey = R.pathOr(undefined, [
+export const createProjectError = R.pathOr(undefined, [
   storeName,
-  "userSession",
-  "idToken",
-  "jwtToken",
+  "createProjectLoadingError",
 ]);
-
-export const getRefreshToken = R.pathOr(undefined, [
+export const createProjectLoading = R.pathOr(undefined, [
   storeName,
-  "userSession",
-  "refreshToken",
-  "token",
+  "createProjectLoadingStatus",
 ]);
-export const getSignInError = R.pathOr(undefined, [
+export const dashboardLoading = R.pathOr(undefined, [
   storeName,
-  "signInLoadingError",
+  "dashboardLoadingStatus",
 ]);
-export const getSignInLoading = R.pathOr(undefined, [
+export const currentProject = R.pathOr(undefined, [
   storeName,
-  "signInLoadingStatus",
+  "currentProject",
 ]);
+export const getProjectLoading = R.pathOr(undefined, [
+  storeName,
+  "getProjectsLoadingStatus",
+]);
+export const getProjectError = R.pathOr(undefined, [
+  storeName,
+  "getProjectsLoadingError",
+]);
+export const projects = R.pathOr(undefined, [storeName, "projects"]);

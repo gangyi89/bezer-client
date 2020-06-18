@@ -1,23 +1,19 @@
-import { put, delay } from "redux-saga/effects";
-
-import Logger from "../../helpers/Logger";
+import { put, call } from "redux-saga/effects";
+import { getProjectsApi } from "../../services/apis";
 import { actions } from "../../stores";
-
-const logger = Logger.create("signout saga");
+import apiWrapper from "../../services/apis/apiWrapper";
 
 export default function* getProjects() {
   try {
-    yield put(actions.auth.setLogoutLoading(true));
-    yield delay(2000);
-    yield put(actions.auth.clearAuthToken());
-
-    logger.info("LOG OUT EXECUTED");
+    yield put(actions.project.setGetProjectsLoading(true));
+    yield put(actions.project.setGetProjectsError(""));
+    const data = yield call(apiWrapper, {
+      api: getProjectsApi,
+    });
+    yield put(actions.project.setProjects(data));
   } catch ({ message }) {
-    yield put(actions.auth.message);
+    yield put(actions.project.setGetProjectsError(message));
   } finally {
-    // yield putWithSelectCheck({
-    //   selector: selectors.auth.getLogoutLoading,
-    //   action: actions.auth.setLogoutLoading,
-    // });
+    yield put(actions.project.setGetProjectsLoading(false));
   }
 }

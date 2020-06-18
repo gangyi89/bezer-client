@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect, memo } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "../../layout/AppBar/AppBar";
 import HeaderBar from "../../components/HeaderBar/HeaderBar";
@@ -7,12 +7,6 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import ProjectCardList from "../../components/Project/ProjectCardList";
 import CreateProjectDialog from "../../components/Project/CreateProjectDialog";
-
-const projects = [
-  { key: "project1", text: "Project 1" },
-  { key: "project2", text: "Project 2" },
-  { key: "project3", text: "Project 3" },
-];
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -31,8 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Select = (props) => {
   const classes = useStyles();
-
+  const { getProjectsHandler, projects } = props;
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    getProjectsHandler();
+  }, [getProjectsHandler]);
+
+  useEffect(() => {}, [projects]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,8 +42,8 @@ const Select = (props) => {
     setOpen(false);
   };
 
-  const onSubmit = () => {
-    props.createProject({ name: "test" });
+  const onSubmit = (projectName) => {
+    props.createProjectHandler({ name: projectName });
   };
 
   return (
@@ -59,16 +59,29 @@ const Select = (props) => {
           <ProjectCardList
             handleClickOpen={handleClickOpen}
             projects={projects}
+            selectProject={props.updateCurrentProjectHandler}
           />
         </div>
         <CreateProjectDialog
           handleClose={handleClose}
           open={open}
           onSubmit={onSubmit}
+          isLoading={props.createProjectIsLoading}
         />
       </Container>
     </>
   );
 };
 
-export default Select;
+Select.propTypes = {
+  projects: PropTypes.array.isRequired,
+  createProjectHandler: PropTypes.func.isRequired,
+  updateCurrentProjectHandler: PropTypes.func.isRequired,
+  getProjectsHandler: PropTypes.func.isRequired,
+  createProjectError: PropTypes.string.isRequired,
+  createProjectIsLoading: PropTypes.bool.isRequired,
+  getProjectLoading: PropTypes.bool.isRequired,
+  getProjectError: PropTypes.string.isRequired,
+};
+
+export default memo(Select);

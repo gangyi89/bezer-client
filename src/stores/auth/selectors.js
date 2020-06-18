@@ -14,6 +14,11 @@ export const getRefreshToken = R.pathOr(undefined, [
   "refreshToken",
   "token",
 ]);
+export const getUserName = R.pathOr(undefined, [
+  storeName,
+  "userDetails",
+  "cognito:username",
+]);
 export const getSignInError = R.pathOr(undefined, [
   storeName,
   "signInLoadingError",

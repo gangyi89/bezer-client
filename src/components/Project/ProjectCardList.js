@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AddProjectCard from "./AddProjectCard";
@@ -24,12 +24,17 @@ const ProjectCardList = (props) => {
         <AddProjectCard handleClickOpen={props.handleClickOpen} />
       </Grid>
       {props.projects.map((project) => (
-        <Grid key={project.key} item>
-          <ProjectCard project={project} />
+        <Grid key={project.id} item>
+          <ProjectCard project={project} selectProject={props.selectProject} />
         </Grid>
       ))}
     </Grid>
   );
 };
 
-export default ProjectCardList;
+function areEqual(prevProps, nextProps) {
+  // only update if a card was added or removed
+  return prevProps.projects === nextProps.projects;
+}
+
+export default memo(ProjectCardList, areEqual);
