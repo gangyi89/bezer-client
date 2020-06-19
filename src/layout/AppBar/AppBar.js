@@ -3,12 +3,16 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import Chip from "@material-ui/core/Chip";
+import Box from "@material-ui/core/Box";
+import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import ProjectSelector from "./ProjectSelector";
+import ProjectSelector from "./ProjectSelector/ProjectSelector";
 import InfoSelector from "./InfoSelector";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Logo from "../../components/Logo/Logo";
+import Logo from "../../components/common/Logo";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const drawerWidth = 240;
 
@@ -64,6 +68,17 @@ const PrimaryAppBar = (props) => {
   console.log("Appbar render");
   const classes = useStyles();
 
+  const accessCodeLabel = () => {
+    return (
+      <Box display="flex" alignItems="center">
+        <Box style={{ marginRight: 8 }}>{props.currentProject.accessCode}</Box>
+        <Box>
+          <FileCopyOutlinedIcon fontSize="small" />
+        </Box>
+      </Box>
+    );
+  };
+
   return (
     <>
       <ElevationScroll {...props}>
@@ -87,7 +102,27 @@ const PrimaryAppBar = (props) => {
                 <MenuIcon />
               </IconButton>
             ) : null}
-            {props.project ? <ProjectSelector /> : <Logo />}
+            {props.project ? (
+              <>
+                <ProjectSelector
+                  currentProject={props.currentProject}
+                  projects={props.projects}
+                />
+                <CopyToClipboard
+                  text={`The access code is ${props.currentProject.accessCode}`}
+                  onCopy={props.copyToClipboard}
+                >
+                  <Chip
+                    clickable
+                    label={accessCodeLabel()}
+                    color="default"
+                    variant="outlined"
+                  />
+                </CopyToClipboard>
+              </>
+            ) : (
+              <Logo />
+            )}
             <div className={classes.grow} />
             {props.login ? <InfoSelector /> : null}
           </Toolbar>
@@ -100,10 +135,11 @@ const PrimaryAppBar = (props) => {
 PrimaryAppBar.protoTypes = {
   project: PropTypes.Boolean,
   login: PropTypes.Boolean,
+  currentProject: PropTypes.object.isRequired,
+  projects: PropTypes.array.isRequired,
 };
 
 function areEqual(prevProps, nextProps) {
-  // only update if a card was added or removed
   return (
     prevProps.project === nextProps.project &&
     prevProps.login === nextProps.login

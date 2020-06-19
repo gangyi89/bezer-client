@@ -1,12 +1,12 @@
 import React, { useEffect, memo } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "../../layout/AppBar/AppBar";
-import HeaderBar from "../../components/HeaderBar/HeaderBar";
+import AppBar from "../../../layout/AppBar";
+import HeaderBar from "../../../components/common/HeaderBar";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import ProjectCardList from "../../components/Project/ProjectCardList";
-import CreateProjectDialog from "../../components/Project/CreateProjectDialog";
+import ProjectCardList from "../../../components/Project/ProjectCardList";
+import CreateProjectDialog from "../../../components/Project/CreateProjectDialog";
 
 const useStyles = makeStyles((theme) => ({
   content: {

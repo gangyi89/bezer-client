@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "../AppBar/AppBar";
+import AppBar from "../AppBar";
 import Sidedrawer from "./Sidedrawer/Sidedrawer";
-import Loader from "../../components/Loader";
+import Loader from "../../components/common/Loader";
 import { useParams } from "react-router-dom";
+import Snackbar from "../../components/common/Snackbar";
 
 const drawerWidth = 240;
 
@@ -50,6 +51,7 @@ const Dashboard = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
   let { id } = useParams();
   console.log(id);
@@ -63,6 +65,17 @@ const Dashboard = (props) => {
     setMobileOpen(!mobileOpen);
   };
 
+  const copyToClipboard = () => {
+    setSnackbarOpen(true);
+  };
+
+  const closeSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -74,6 +87,7 @@ const Dashboard = (props) => {
         onClose={handleDrawerToggle}
         project={!props.dashboardLoading}
         login
+        copyToClipboard={copyToClipboard}
       />
       {props.dashboardLoading ? (
         <Loader />
@@ -114,6 +128,11 @@ const Dashboard = (props) => {
             <div className={classes.toolbar} />
             {props.children}
           </main>
+          <Snackbar
+            open={snackbarOpen}
+            handleClose={closeSnackbar}
+            message={"Copied to clipboard!"}
+          />
         </>
       )}
     </div>
@@ -124,7 +143,6 @@ Dashboard.propTypes = {
   getProjectHandler: PropTypes.func.isRequired,
   getProjectsHandler: PropTypes.func.isRequired,
   dashboardLoading: PropTypes.bool.isRequired,
-  // currentProject: PropTypes.object.isRequired,
 };
 
 export default memo(Dashboard);

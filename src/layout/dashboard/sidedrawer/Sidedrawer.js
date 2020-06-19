@@ -11,7 +11,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import Box from "@material-ui/core/Box";
 import { ListSubheader } from "@material-ui/core";
 
-import Logo from "../../../components/Logo/Logo";
+import Logo from "../../../components/common/Logo";
 
 const manageSection = [
   { key: "stages", text: "Stages" },

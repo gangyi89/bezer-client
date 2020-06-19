@@ -14,7 +14,7 @@ export default function* signin({ payload }) {
     yield put(actions.auth.setSignInError(""));
     const result = yield call(signIn, username, password);
     yield put(actions.auth.setUserSession(result));
-    yield put(replace("/dashboard"));
+    yield put(replace("/projects"));
   } catch ({ message }) {
     yield put(actions.auth.setSignInError(message));
   } finally {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import AppBar from "../../layout/AppBar/AppBar";
+import AppBar from "../../../layout/AppBar";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-import Button from "../../components/Button/Button";
+import Button from "../../../components/common/Button";
 
 function Copyright() {
   return (

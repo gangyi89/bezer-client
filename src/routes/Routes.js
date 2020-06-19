@@ -3,7 +3,8 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux-config";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "../layout/dashboard";
-import { Landing, Login, Projects, Stages, Example } from "../containers";
+import { Landing, Login } from "../containers/common";
+import { Projects, Stages, Example } from "../containers/admin";
 
 class Routes extends Component {
   render() {
@@ -12,7 +13,7 @@ class Routes extends Component {
         <Route path="/login">
           <Login />
         </Route>
-        <Route exact path="/dashboard">
+        <Route exact path="/projects">
           <Projects />
         </Route>
         <Route path="/dashboard/:id">

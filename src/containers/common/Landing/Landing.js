@@ -1,7 +1,7 @@
 import React from "react";
 
-import AppBar from "../../layout/AppBar/AppBar";
-import JoinSession from "../../components/JoinSession/JoinSession";
+import AppBar from "../../../layout/AppBar";
+import JoinSession from "../../../components/JoinSession/JoinSession";
 
 const Landing = () => {
   return (
