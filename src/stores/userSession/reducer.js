@@ -6,6 +6,10 @@ const initialState = Immutable({
   joinSession: {},
   joinSessionError: "",
   joinSessionLoading: false,
+
+  currentProject: {},
+  getProjectError: "",
+  getProjectLoading: false,
 });
 
 function authReducer(state = initialState, action) {
@@ -16,6 +20,12 @@ function authReducer(state = initialState, action) {
       return state.set("joinSessionLoading", action.payload);
     case Types.SET_JOIN_SESSION_ERROR:
       return state.set("joinSessionError", action.payload);
+    case Types.SET_CURRENT_PROJECT:
+      return state.set("currentProject", action.payload);
+    case Types.SET_GET_PROJECT_LOADING:
+      return state.set("getProjectLoading", action.payload);
+    case Types.SET_GET_PROJECT_ERROR:
+      return state.set("getProjectError", action.payload);
     default:
       return state;
   }

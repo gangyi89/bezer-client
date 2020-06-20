@@ -12,6 +12,9 @@ const initialState = Immutable({
   getProjectsLoadingError: "",
   getProjectsLoadingStatus: false,
 
+  getProjectLoadingError: "",
+  getProjectLoadingStatus: false,
+
   dashboardLoadingStatus: false,
 });
 
@@ -31,6 +34,10 @@ function projectReducer(state = initialState, action) {
       return state.set("createProjectLoadingError", action.payload);
     case Types.SET_DASHBOARD_LOADING:
       return state.set("dashboardLoadingStatus", action.payload);
+    case Types.SET_GET_PROJECT_LOADING:
+      return state.set("getProjectLoadingStatus", action.payload);
+    case Types.SET_GET_PROJECT_ERROR:
+      return state.set("getProjectLoadingError", action.payload);
     default:
       return state;
   }

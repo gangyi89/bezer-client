@@ -27,8 +27,6 @@ const ProjectSelector = (props) => {
   const classes = useStyles();
 
   const currentProject = props.currentProject.name;
-  const projects = props.projects;
-
   return (
     <>
       <Button
@@ -38,33 +36,35 @@ const ProjectSelector = (props) => {
         onClick={handleClick}
       >
         {currentProject}
-        <ArrowDropDown />
+        {props.isUser ? null : <ArrowDropDown />}
       </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {projects.map((project) => (
-          <MenuItem
-            key={project.id}
-            onClick={handleClose}
-            component={Link}
-            to={`/dashboard/${project.id}`}
-          >
-            {project.name}
-          </MenuItem>
-        ))}
-      </Menu>
+      {props.isUser ? null : (
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {props.projects.map((project) => (
+            <MenuItem
+              key={project.id}
+              onClick={handleClose}
+              component={Link}
+              to={`/dashboard/${project.id}`}
+            >
+              {project.name}
+            </MenuItem>
+          ))}
+        </Menu>
+      )}
     </>
   );
 };
 
 ProjectSelector.propTypes = {
   currentProject: PropTypes.object.isRequired,
-  projects: PropTypes.array.isRequired,
+  projects: PropTypes.array,
 };
 
 export default ProjectSelector;

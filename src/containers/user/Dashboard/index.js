@@ -1,7 +1,18 @@
-import React from "react";
+import { connect } from "react-redux";
 
-const Dashboard = () => {
-  return <div>User dashboard</div>;
-};
+import { selectors, actions } from "../../../stores";
 
-export default Dashboard;
+import Dashboard from "../../../layout/Dashboard";
+
+const mapStateToProps = (state) => ({
+  dashboardLoading: selectors.project.dashboardLoading(state),
+  currentProject: selectors.userSession.currentProject(state),
+  isUser: true,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getProjectHandler: (payload) =>
+    dispatch(actions.userSession.getProject(payload)),
+  getProjectsHandler: (payload) => dispatch(actions.project.getProjects()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

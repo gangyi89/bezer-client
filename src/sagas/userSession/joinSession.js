@@ -1,8 +1,8 @@
-import { put, call } from "redux-saga/effects";
+import { put, call, select } from "redux-saga/effects";
 import { joinSessionApi } from "../../services/apis";
 import apiWrapper from "../../services/apis/apiWrapper";
 import { push } from "connected-react-router";
-import { actions } from "../../stores";
+import { actions, selectors } from "../../stores";
 
 //User login may fail die to user new password required
 //https://stackoverflow.com/questions/40287012/how-to-change-user-status-force-change-password
@@ -12,11 +12,18 @@ export default function* joinSession({ payload }) {
     const body = { accessCode: payload };
     yield put(actions.userSession.setJoinSessionLoading(true));
     yield put(actions.userSession.setJoinSessionError(""));
-    const result = yield call(apiWrapper, {
-      api: joinSessionApi,
-      body,
-    });
-    yield put(push(`/session/${result.projectId}`));
+    const currentSession = yield select(selectors.userSession.getJoinSession);
+
+    if (currentSession.accessCode === payload) {
+      yield put(push(`/session/${currentSession.projectId}`));
+    } else {
+      const result = yield call(apiWrapper, {
+        api: joinSessionApi,
+        body,
+      });
+      yield put(actions.userSession.setJoinSession(result));
+      yield put(push(`/session/${result.projectId}`));
+    }
   } catch (e) {
     yield put(actions.userSession.setJoinSessionError(e.message));
   } finally {

@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  project: {
+    textTransform: "none",
+  },
 }));
 
 const ElevationScroll = (props) => {
@@ -107,6 +110,7 @@ const PrimaryAppBar = (props) => {
                 <ProjectSelector
                   currentProject={props.currentProject}
                   projects={props.projects}
+                  isUser={props.isUser}
                 />
                 <CopyToClipboard
                   text={`The access code is ${props.currentProject.accessCode}`}
@@ -120,9 +124,8 @@ const PrimaryAppBar = (props) => {
                   />
                 </CopyToClipboard>
               </>
-            ) : (
-              <Logo />
-            )}
+            ) : null}
+            {props.project ? null : <Logo />}
             <div className={classes.grow} />
             {props.login ? <InfoSelector /> : null}
           </Toolbar>
@@ -133,10 +136,11 @@ const PrimaryAppBar = (props) => {
 };
 
 PrimaryAppBar.protoTypes = {
-  project: PropTypes.Boolean,
-  login: PropTypes.Boolean,
+  project: PropTypes.bool,
+  login: PropTypes.bool,
   currentProject: PropTypes.object.isRequired,
   projects: PropTypes.array.isRequired,
+  selectProject: PropTypes.bool.isRequired,
 };
 
 function areEqual(prevProps, nextProps) {

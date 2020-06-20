@@ -54,7 +54,6 @@ const Dashboard = (props) => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
   let { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     getProjectHandler(id);
@@ -88,6 +87,9 @@ const Dashboard = (props) => {
         project={!props.dashboardLoading}
         login
         copyToClipboard={copyToClipboard}
+        currentProject={props.currentProject}
+        projects={props.projects}
+        isUser={props.isUser}
       />
       {props.dashboardLoading ? (
         <Loader />
@@ -143,6 +145,14 @@ Dashboard.propTypes = {
   getProjectHandler: PropTypes.func.isRequired,
   getProjectsHandler: PropTypes.func.isRequired,
   dashboardLoading: PropTypes.bool.isRequired,
+  isUser: PropTypes.bool,
 };
 
-export default memo(Dashboard);
+function areEqual(prevProps, nextProps) {
+  return (
+    prevProps.isUser === nextProps.isUser &&
+    prevProps.dashboardLoading === nextProps.dashboardLoading
+  );
+}
+
+export default memo(Dashboard, areEqual);

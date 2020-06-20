@@ -69,7 +69,7 @@ const Actions = {
   getProjects: () => ({
     type: Types.GET_PROJECTS,
   }),
-  getProject: (payload: string) => ({
+  getProject: (payload: object) => ({
     type: Types.GET_PROJECT,
     payload,
   }),
