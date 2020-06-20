@@ -24,6 +24,7 @@ const transformerConfig = {
   whitelistPerReducer: {
     auth: ["userSession", "userDetails"],
     project: ["projects", "currentProject"],
+    userSession: ["joinSession"],
   },
   blacklistPerReducer: {},
 };

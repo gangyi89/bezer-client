@@ -28,4 +28,8 @@ function getProjectApi({ headers, path }) {
   return axios.get(URL + `projects/${path.id}`, { headers: headers });
 }
 
-export { createProjectApi, getProjectsApi, getProjectApi };
+function joinSessionApi({ body, headers }) {
+  return axios.post(URL + "join", body, { headers: headers });
+}
+
+export { createProjectApi, getProjectsApi, getProjectApi, joinSessionApi };

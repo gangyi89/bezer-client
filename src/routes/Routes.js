@@ -9,6 +9,7 @@ import {
   Example,
   Dashboard as AdminDashboard,
 } from "../containers/admin";
+import { Dashboard as UserDashboard } from "../containers/user";
 
 const adminRoutes = () => (
   <>
@@ -41,11 +42,26 @@ const commonRoutes = () => (
   </>
 );
 
+const userRoutes = () => (
+  <>
+    <Route path="/session/:id">
+      <UserDashboard>
+        <Switch>
+          {/* <Route path="/session/:id/stages">
+            <Stages />
+          </Route> */}
+        </Switch>
+      </UserDashboard>
+    </Route>
+  </>
+);
+
 const Routes = () => {
   return (
     <ConnectedRouter history={history}>
       {commonRoutes()}
       {adminRoutes()}
+      {userRoutes()}
     </ConnectedRouter>
   );
 };
