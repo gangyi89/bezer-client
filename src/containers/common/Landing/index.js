@@ -7,6 +7,7 @@ import Landing from "./Landing";
 const mapStateToProps = (state) => ({
   joinSessionError: selectors.userSession.getJoinSessionError(state),
   isLoading: selectors.userSession.getJoinSessionLoading(state),
+  accessCode: selectors.userSession.getAccessCode(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

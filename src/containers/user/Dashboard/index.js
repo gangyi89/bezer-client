@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProjectHandler: (payload) =>
     dispatch(actions.userSession.getProject(payload)),
-  getProjectsHandler: (payload) => dispatch(actions.project.getProjects()),
+  getProjectsHandler: (payload) => null,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

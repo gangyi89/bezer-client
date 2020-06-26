@@ -8,25 +8,30 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import { useLocation, useHistory, Link, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
-  },
-  sectionMobile: {
     display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
   },
+  // sectionMobile: {
+  //   display: "flex",
+  //   [theme.breakpoints.up("md")]: {
+  //     display: "none",
+  //   },
+  // },
 }));
 
-const InfoSelector = () => {
+const InfoSelector = (props) => {
+  let url = "dashboard";
+  if (props.isUser === true) {
+    url = "session";
+  }
+  let { id } = useParams();
   console.log("Info render");
+  console.log(id);
 
+  const history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -39,8 +44,9 @@ const InfoSelector = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (event) => {
     setAnchorEl(null);
+    console.log(event.target.value);
     handleMobileMenuClose();
   };
 
@@ -62,8 +68,20 @@ const InfoSelector = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={handleMenuClose}
+        component={Link}
+        to={`/${url}/${id}/profile`}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem
+        onClick={handleMenuClose}
+        component={Link}
+        to={`/${url}/${id}/endsession`}
+      >
+        End Session
+      </MenuItem>
     </Menu>
   );
 
@@ -119,7 +137,7 @@ const InfoSelector = () => {
           <AccountCircle />
         </IconButton>
       </div>
-      <div className={classes.sectionMobile}>
+      {/* <div className={classes.sectionMobile}>
         <IconButton
           aria-label="show more"
           aria-controls={mobileMenuId}
@@ -129,8 +147,8 @@ const InfoSelector = () => {
         >
           <MoreIcon />
         </IconButton>
-      </div>
-      {renderMobileMenu}
+      </div> */}
+      {/* {renderMobileMenu} */}
       {renderMenu}
     </>
   );

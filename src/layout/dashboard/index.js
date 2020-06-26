@@ -55,10 +55,10 @@ const Dashboard = (props) => {
 
   let { id } = useParams();
 
-  useEffect(() => {
-    getProjectHandler(id);
-    getProjectsHandler();
-  }, [getProjectHandler, getProjectsHandler, id]);
+  // useEffect(() => {
+  //   getProjectHandler(id);
+  //   if (getProjectHandler !== undefined) getProjectsHandler();
+  // }, [getProjectHandler, getProjectsHandler, id]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -111,7 +111,10 @@ const Dashboard = (props) => {
                   keepMounted: true, // Better open performance on mobile.
                 }}
               >
-                <Sidedrawer onClose={handleDrawerToggle} />
+                <Sidedrawer
+                  onClose={handleDrawerToggle}
+                  isUser={props.isUser}
+                />
               </Drawer>
             </Hidden>
             <Hidden xsDown implementation="css">
@@ -122,7 +125,7 @@ const Dashboard = (props) => {
                 variant="permanent"
                 open
               >
-                <Sidedrawer />
+                <Sidedrawer isUser={props.isUser} />
               </Drawer>
             </Hidden>
           </nav>
@@ -143,7 +146,7 @@ const Dashboard = (props) => {
 
 Dashboard.propTypes = {
   getProjectHandler: PropTypes.func.isRequired,
-  getProjectsHandler: PropTypes.func.isRequired,
+  getProjectsHandler: PropTypes.func,
   dashboardLoading: PropTypes.bool.isRequired,
   isUser: PropTypes.bool,
 };

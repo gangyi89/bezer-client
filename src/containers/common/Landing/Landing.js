@@ -62,7 +62,6 @@ const Landing = (props) => {
 
   const joinSession = () => {
     props.submitHandler(accessCode);
-    // props.submitHandler("37214");
   };
   return (
     <div>
@@ -92,6 +91,16 @@ const Landing = (props) => {
               onChange={updateAccessCode}
               value={accessCode}
             />
+            {props.accessCode !== undefined && props.joinSessionError === "" ? (
+              <Alert severity="info">
+                <AlertTitle>Info</AlertTitle>
+                Return to{" "}
+                <RouterLink to={`/session/${props.accessCode}`}>
+                  last session
+                </RouterLink>
+                ?
+              </Alert>
+            ) : null}
             {props.joinSessionError === "" ? null : (
               <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
@@ -131,6 +140,7 @@ Landing.propTypes = {
   submitHandler: PropTypes.func.isRequired,
   joinSessionError: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  accessCode: PropTypes.string,
 };
 
 export default Landing;

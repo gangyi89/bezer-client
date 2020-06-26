@@ -112,22 +112,24 @@ const PrimaryAppBar = (props) => {
                   projects={props.projects}
                   isUser={props.isUser}
                 />
-                <CopyToClipboard
-                  text={`The access code is ${props.currentProject.accessCode}`}
-                  onCopy={props.copyToClipboard}
-                >
-                  <Chip
-                    clickable
-                    label={accessCodeLabel()}
-                    color="default"
-                    variant="outlined"
-                  />
-                </CopyToClipboard>
+                {props.isUser ? null : (
+                  <CopyToClipboard
+                    text={`The access code is ${props.currentProject.accessCode}`}
+                    onCopy={props.copyToClipboard}
+                  >
+                    <Chip
+                      clickable
+                      label={accessCodeLabel()}
+                      color="default"
+                      variant="outlined"
+                    />
+                  </CopyToClipboard>
+                )}
               </>
             ) : null}
             {props.project ? null : <Logo />}
             <div className={classes.grow} />
-            {props.login ? <InfoSelector /> : null}
+            {props.login ? <InfoSelector isUser={props.isUser} /> : null}
           </Toolbar>
         </AppBar>
       </ElevationScroll>

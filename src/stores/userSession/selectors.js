@@ -23,3 +23,8 @@ export const getProjectLoading = R.pathOr(undefined, [
   storeName,
   "getProjectLoading",
 ]);
+export const getAccessCode = R.pathOr(undefined, [
+  storeName,
+  "joinSession",
+  "accessCode",
+]);

@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,7 +17,13 @@ const useStyles = makeStyles(() => ({
 const ProjectSelector = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  let history = useHistory();
+  let { id } = useParams();
+
   const handleClick = (event) => {
+    if (props.isUser === true) {
+      history.push(`/session/${id}`);
+    }
     setAnchorEl(event.currentTarget);
   };
 

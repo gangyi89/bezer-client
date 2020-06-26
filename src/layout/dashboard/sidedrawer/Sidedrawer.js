@@ -13,6 +13,8 @@ import { ListSubheader } from "@material-ui/core";
 
 import Logo from "../../../components/common/Logo";
 
+const historySection = [{ key: "pastEvents", text: "Past Events" }];
+
 const manageSection = [
   { key: "stages", text: "Stages" },
   { key: "locations", text: "Locations" },
@@ -41,14 +43,33 @@ const Sidedrawer = (props) => {
   const classes = useStyles();
   let { id } = useParams();
 
-  return (
-    <div>
-      <Box className={classes.toolbar} display="flex" alignItems="center">
-        <div className={classes.logo}>
-          <Logo />
-        </div>
-      </Box>
-      <Divider />
+  console.log("sideDrawer render");
+  console.log(props.isUser);
+
+  const userMenu = () => (
+    <List>
+      <ListSubheader component="div" className={classes.subHeaderRoot}>
+        History
+      </ListSubheader>
+      {historySection.map((route, index) => (
+        <ListItem
+          button
+          key={route.key}
+          component={Link}
+          to={`/dashboard/${id}/${route.key}`}
+          onClick={props.onClose}
+        >
+          <ListItemIcon className={classes.iconRoot}>
+            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+          </ListItemIcon>
+          <ListItemText primary={route.text} />
+        </ListItem>
+      ))}
+    </List>
+  );
+
+  const adminMenu = () => (
+    <>
       <List>
         <ListSubheader component="div" className={classes.subHeaderRoot}>
           Manage
@@ -87,6 +108,18 @@ const Sidedrawer = (props) => {
           </ListItem>
         ))}
       </List>
+    </>
+  );
+
+  return (
+    <div>
+      <Box className={classes.toolbar} display="flex" alignItems="center">
+        <div className={classes.logo}>
+          <Logo />
+        </div>
+      </Box>
+      <Divider />
+      {props.isUser ? userMenu() : adminMenu()}
     </div>
   );
 };

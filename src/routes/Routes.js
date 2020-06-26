@@ -9,7 +9,11 @@ import {
   Example,
   Dashboard as AdminDashboard,
 } from "../containers/admin";
-import { Dashboard as UserDashboard } from "../containers/user";
+import {
+  Dashboard as UserDashboard,
+  Overview,
+  Profile,
+} from "../containers/user";
 
 const adminRoutes = () => (
   <>
@@ -47,9 +51,12 @@ const userRoutes = () => (
     <Route path="/session/:id">
       <UserDashboard>
         <Switch>
-          {/* <Route path="/session/:id/stages">
-            <Stages />
-          </Route> */}
+          <Route path="/session/:id/" exact>
+            <Overview />
+          </Route>
+          <Route path="/session/:id/profile">
+            <Profile />
+          </Route>
         </Switch>
       </UserDashboard>
     </Route>

@@ -53,6 +53,7 @@ const SignIn = (props) => {
   //declare states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  var inputRefs = [];
 
   console.log("sign in render");
   console.log(`${email} ${password}`);
@@ -70,6 +71,20 @@ const SignIn = (props) => {
   const redirectUser = () => {
     props.submitHandler({ email, password });
   };
+
+  const handleKeyPress = (e) => {
+    const event = e;
+    const { currentTarget } = e;
+    if (event.key === "Enter") {
+      let inputIndex = inputRefs.indexOf(currentTarget);
+      if (inputIndex < inputRefs.length - 1) {
+        inputRefs[inputIndex + 1].focus();
+      } else {
+        inputRefs[0].focus();
+      }
+      event.preventDefault();
+    }
+  };
   return (
     <>
       <AppBar />
@@ -83,6 +98,8 @@ const SignIn = (props) => {
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
+              inputProps={{ onKeyPress: handleKeyPress }}
+              inputRef={(ref) => inputRefs.push(ref)}
               variant="outlined"
               margin="normal"
               required
@@ -96,6 +113,7 @@ const SignIn = (props) => {
               onChange={updateEmail}
             />
             <TextField
+              inputRef={(ref) => inputRefs.push(ref)}
               variant="outlined"
               margin="normal"
               required
