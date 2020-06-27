@@ -10,6 +10,13 @@ const initialState = Immutable({
   currentProject: {},
   getProjectError: "",
   getProjectLoading: false,
+
+  profile: {},
+  getProfileError: "",
+  getProfileLoading: true,
+
+  updateProfileError: "",
+  updateProfileLoading: false,
 });
 
 function authReducer(state = initialState, action) {
@@ -26,6 +33,16 @@ function authReducer(state = initialState, action) {
       return state.set("getProjectLoading", action.payload);
     case Types.SET_GET_PROJECT_ERROR:
       return state.set("getProjectError", action.payload);
+    case Types.SET_GET_PROFILE_ERROR:
+      return state.set("getProfileError", action.payload);
+    case Types.SET_GET_PROFILE_LOADING:
+      return state.set("getProfileLoading", action.payload);
+    case Types.SET_UPDATE_PROFILE_ERROR:
+      return state.set("updateProfileError", action.payload);
+    case Types.SET_UPDATE_PROFILE_LOADING:
+      return state.set("updateProfileLoading", action.payload);
+    case Types.SET_PROFILE:
+      return state.set("profile", action.payload);
     default:
       return state;
   }

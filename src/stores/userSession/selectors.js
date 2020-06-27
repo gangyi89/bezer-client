@@ -28,3 +28,30 @@ export const getAccessCode = R.pathOr(undefined, [
   "joinSession",
   "accessCode",
 ]);
+export const getProjectId = R.pathOr(undefined, [
+  storeName,
+  "joinSession",
+  "projectId",
+]);
+export const getProfileError = R.pathOr(undefined, [
+  storeName,
+  "getProfileError",
+]);
+export const getProfileLoading = R.pathOr(undefined, [
+  storeName,
+  "getProfileLoading",
+]);
+export const updateProfileError = R.pathOr(undefined, [
+  storeName,
+  "updateProfileError",
+]);
+export const updateProfileLoading = R.pathOr(undefined, [
+  storeName,
+  "updateProfileLoading",
+]);
+export const getSessionId = R.pathOr(undefined, [
+  storeName,
+  "joinSession",
+  "id",
+]);
+export const getProfile = R.pathOr(undefined, [storeName, "profile"]);

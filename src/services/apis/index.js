@@ -32,4 +32,19 @@ function joinSessionApi({ body, headers }) {
   return axios.post(URL + "join", body, { headers: headers });
 }
 
-export { createProjectApi, getProjectsApi, getProjectApi, joinSessionApi };
+function postProfileApi({ body, headers }) {
+  return axios.post(URL + "profiles", body, { headers: headers });
+}
+
+function getProfileApi({ headers, path }) {
+  return axios.get(URL + `profiles/${path.id}`, { headers: headers });
+}
+
+export {
+  createProjectApi,
+  getProjectsApi,
+  getProjectApi,
+  joinSessionApi,
+  postProfileApi,
+  getProfileApi,
+};

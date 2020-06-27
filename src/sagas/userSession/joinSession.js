@@ -1,5 +1,5 @@
 import { put, call, select } from "redux-saga/effects";
-import { joinSessionApi } from "../../services/apis";
+import { joinSessionApi, postProfileApi } from "../../services/apis";
 import apiWrapper from "../../services/apis/apiWrapper";
 import { push } from "connected-react-router";
 import { actions, selectors } from "../../stores";
@@ -20,6 +20,17 @@ export default function* joinSession({ payload }) {
       const result = yield call(apiWrapper, {
         api: joinSessionApi,
         body,
+      });
+      yield put(actions.userSession.setJoinSession(result));
+
+      const createProfileBody = {
+        id: result.id,
+        accessCode: result.accessCode,
+      };
+
+      const createResult = yield call(apiWrapper, {
+        api: postProfileApi,
+        body: createProfileBody,
       });
       yield put(actions.userSession.setJoinSession(result));
       yield put(push(`/session/${result.projectId}`));

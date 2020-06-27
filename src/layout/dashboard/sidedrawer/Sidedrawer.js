@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -44,7 +44,6 @@ const Sidedrawer = (props) => {
   let { id } = useParams();
 
   console.log("sideDrawer render");
-  console.log(props.isUser);
 
   const userMenu = () => (
     <List>
@@ -124,4 +123,4 @@ const Sidedrawer = (props) => {
   );
 };
 
-export default Sidedrawer;
+export default memo(Sidedrawer);
