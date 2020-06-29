@@ -85,6 +85,7 @@ const Landing = (props) => {
               name="accessCode"
               autoFocus
               autoComplete="new-password"
+              type="tel"
               inputProps={{
                 style: { fontSize: 28, textAlign: "center", letterSpacing: 10 },
               }}
