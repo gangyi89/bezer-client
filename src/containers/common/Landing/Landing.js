@@ -95,7 +95,7 @@ const Landing = (props) => {
               <Alert severity="info">
                 <AlertTitle>Info</AlertTitle>
                 Return to{" "}
-                <RouterLink to={`/session/${props.accessCode}`}>
+                <RouterLink to={`/session/${props.projectId}`}>
                   last session
                 </RouterLink>
                 ?
@@ -141,6 +141,7 @@ Landing.propTypes = {
   joinSessionError: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   accessCode: PropTypes.string,
+  projectId: PropTypes.string,
 };
 
 export default Landing;

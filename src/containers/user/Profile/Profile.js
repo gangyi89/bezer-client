@@ -121,7 +121,7 @@ const Profile = (props) => {
               >
                 <Typography>Congratulations you are officially...</Typography>
                 <Typography className={classes.demographic} variant="h5">
-                  {emoji("🎉")} Adult {emoji("🎉")}
+                  {emoji("🎉")} {profile.selected} {emoji("🎉")}
                 </Typography>
               </Box>
             </Paper>

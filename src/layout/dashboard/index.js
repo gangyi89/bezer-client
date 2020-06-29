@@ -55,10 +55,10 @@ const Dashboard = (props) => {
 
   let { id } = useParams();
 
-  // useEffect(() => {
-  //   getProjectHandler(id);
-  //   if (getProjectHandler !== undefined) getProjectsHandler();
-  // }, [getProjectHandler, getProjectsHandler, id]);
+  useEffect(() => {
+    getProjectHandler(id);
+    if (getProjectHandler !== undefined) getProjectsHandler();
+  }, [getProjectHandler, getProjectsHandler, id]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
