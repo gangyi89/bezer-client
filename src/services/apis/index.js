@@ -40,6 +40,10 @@ function getProfileApi({ headers, path }) {
   return axios.get(URL + `profiles/${path.id}`, { headers: headers });
 }
 
+function postStageApi({ headers, body }) {
+  return axios.post(URL + "stages", body, { headers: headers });
+}
+
 export {
   createProjectApi,
   getProjectsApi,
@@ -47,4 +51,5 @@ export {
   joinSessionApi,
   postProfileApi,
   getProfileApi,
+  postStageApi,
 };

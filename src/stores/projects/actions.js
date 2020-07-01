@@ -12,10 +12,14 @@ const Types = {
   SET_GET_PROJECT_LOADING: "projects.SET_GET_PROJECT_LOADING",
   SET_GET_PROJECT_ERROR: "projects.SET_GET_PROJECT_ERROR",
 
+  SET_POST_STAGE_LOADING: "projects.SET_POST_STAGE_LOADING",
+  SET_POST_STAGE_ERROR: "projects.SET_POST_STAGE_ERROR",
+
   //sagas
   CREATE_PROJECT: "projects.CREATE_PROJECT",
   GET_PROJECTS: "projects.GET_PROJECTS",
   GET_PROJECT: "projects.GET_PROJECT",
+  POST_STAGE: "projects.POST_STAGE",
 };
 
 const Actions = {
@@ -60,6 +64,14 @@ const Actions = {
     type: Types.SET_GET_PROJECT_LOADING,
     payload: isLoading,
   }),
+  setPostStageError: (errorMsg: string) => ({
+    type: Types.SET_POST_STAGE_ERROR,
+    payload: errorMsg,
+  }),
+  setPostStageLoading: (isLoading: boolean) => ({
+    type: Types.SET_POST_STAGE_LOADING,
+    payload: isLoading,
+  }),
 
   //sagas
   createProject: (payload: Object) => ({
@@ -71,6 +83,10 @@ const Actions = {
   }),
   getProject: (payload: object) => ({
     type: Types.GET_PROJECT,
+    payload,
+  }),
+  postStage: (payload: object) => ({
+    type: Types.POST_STAGE,
     payload,
   }),
 };

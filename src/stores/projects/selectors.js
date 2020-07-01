@@ -27,3 +27,13 @@ export const getProjectError = R.pathOr(undefined, [
   "getProjectsLoadingError",
 ]);
 export const projects = R.pathOr(undefined, [storeName, "projects"]);
+
+//stages
+export const getPostStageLoading = R.pathOr(undefined, [
+  storeName,
+  "postStageLoading",
+]);
+export const getPostStageError = R.pathOr(undefined, [
+  storeName,
+  "postStageError",
+]);
