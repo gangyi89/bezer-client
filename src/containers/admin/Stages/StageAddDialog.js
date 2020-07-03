@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../../components/common/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,12 +10,18 @@ import Grid from "@material-ui/core/Grid";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
 const StageAddDialog = (props) => {
-  const [name, setName] = useState("");
+  const { item } = props;
+  const [id, setId] = useState("");
   const [level, setLevel] = useState("");
   const [description, setDescription] = useState("");
 
+  useEffect(() => {
+    setId(item.id);
+    setDescription(item.description);
+    setLevel(item.level);
+  }, [item]);
   const updateName = (event) => {
-    setName(event.target.value);
+    setId(event.target.value);
   };
   const updateLevel = (event) => {
     setLevel(event.target.value);
@@ -25,16 +31,24 @@ const StageAddDialog = (props) => {
   };
 
   const clearState = () => {
-    setName("");
+    setId("");
     setLevel("");
     setDescription("");
   };
 
   const submitHandler = () => {
-    const data = { name, level, description };
-    const { handleClose } = props;
-    props.postStageHandler({ data, handleClose, clearState });
+    const data = { id, level, description };
+    const { handleClose, onAdd, onUpdate } = props;
+    console.log(item);
+    props.postStageHandler({
+      data,
+      handleClose,
+      clearState,
+      updateTable: item === "" ? onAdd : onUpdate,
+    });
   };
+
+  console.log(`item data is ${id}`);
 
   return (
     <div>
@@ -55,7 +69,7 @@ const StageAddDialog = (props) => {
                 type="text"
                 variant="outlined"
                 fullWidth
-                value={name}
+                value={id}
                 onChange={updateName}
               />
             </Grid>

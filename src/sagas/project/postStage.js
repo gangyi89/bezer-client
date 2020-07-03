@@ -19,6 +19,7 @@ export default function* createProject({ payload }) {
     });
     yield call(payload.handleClose);
     yield call(payload.clearState);
+    yield call(payload.updateTable, payload.data);
   } catch (e) {
     yield put(actions.project.setPostStageError(e.message));
   } finally {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MaterialTable from "material-table";
 import Button from "@material-ui/core/Button";
@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StagesTable = (props) => {
+  const data = JSON.parse(JSON.stringify(props.data));
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     columns: [
@@ -30,7 +32,7 @@ const StagesTable = (props) => {
       },
       {
         title: "Name",
-        field: "name",
+        field: "id",
         width: "250px",
       },
       {
@@ -38,36 +40,20 @@ const StagesTable = (props) => {
         field: "description",
       },
     ],
-    data: [
-      {
-        name: "Mehmet",
-        description: "fsdfsdf",
-        level: 1,
-      },
-      {
-        name: "lala",
-        description: "fsdfsdffdfdfdfsdffdfdfdfsdfsdff",
-        level: 2,
-      },
-      {
-        name: "chipiti",
-        description: "fsdfsdf",
-        level: 3,
-      },
-    ],
   });
 
   return (
     <div className={classes.root}>
       <MaterialTable
+        isLoading={props.isLoading}
         title=""
         columns={state.columns}
-        data={state.data}
+        data={data}
         actions={[
           {
             icon: (props) => <EditIcon color="action" />,
             tooltip: "Edit item",
-            onClick: (event, rowData) => alert("You saved " + rowData.name),
+            onClick: (event, rowData) => props.editHandler(rowData),
           },
           {
             icon: (props) => <DeleteIcon color="action" />,
@@ -78,7 +64,7 @@ const StagesTable = (props) => {
             icon: "add",
             tooltip: "Add User",
             isFreeAction: true,
-            onClick: (event) => props.AddHandler(),
+            onClick: (event) => props.addHandler(),
           },
         ]}
       />

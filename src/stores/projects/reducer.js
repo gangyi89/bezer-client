@@ -5,6 +5,7 @@ import Immutable from "seamless-immutable";
 const initialState = Immutable({
   projects: [],
   currentProject: {},
+  stages: [],
 
   createProjectLoadingError: "",
   createProjectLoadingStatus: false,
@@ -19,6 +20,9 @@ const initialState = Immutable({
 
   postStageLoading: false,
   postStageError: "",
+
+  getStagesLoading: false,
+  getStagesError: "",
 });
 
 function projectReducer(state = initialState, action) {
@@ -45,6 +49,12 @@ function projectReducer(state = initialState, action) {
       return state.set("postStageLoading", action.payload);
     case Types.SET_POST_STAGE_ERROR:
       return state.set("postStageError", action.payload);
+    case Types.SET_GET_STAGES_LOADING:
+      return state.set("getStagesLoading", action.payload);
+    case Types.SET_GET_STAGES_ERROR:
+      return state.set("getStagesError", action.payload);
+    case Types.SET_STAGES:
+      return state.set("stages", action.payload);
     default:
       return state;
   }

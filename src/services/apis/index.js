@@ -44,6 +44,10 @@ function postStageApi({ headers, body }) {
   return axios.post(URL + "stages", body, { headers: headers });
 }
 
+function getStagesApi({ headers, params }) {
+  return axios.get(URL + "stages", { headers: headers, params: params });
+}
+
 export {
   createProjectApi,
   getProjectsApi,
@@ -52,4 +56,5 @@ export {
   postProfileApi,
   getProfileApi,
   postStageApi,
+  getStagesApi,
 };

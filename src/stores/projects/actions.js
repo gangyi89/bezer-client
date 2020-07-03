@@ -15,11 +15,16 @@ const Types = {
   SET_POST_STAGE_LOADING: "projects.SET_POST_STAGE_LOADING",
   SET_POST_STAGE_ERROR: "projects.SET_POST_STAGE_ERROR",
 
+  SET_GET_STAGES_LOADING: "projects.SET_GET_STAGES_LOADING",
+  SET_GET_STAGES_ERROR: "projects.SET_GET_STAGES_ERROR",
+  SET_STAGES: "projects.SET_STAGES",
+
   //sagas
   CREATE_PROJECT: "projects.CREATE_PROJECT",
   GET_PROJECTS: "projects.GET_PROJECTS",
   GET_PROJECT: "projects.GET_PROJECT",
   POST_STAGE: "projects.POST_STAGE",
+  GET_STAGES: "projects.GET_STAGES",
 };
 
 const Actions = {
@@ -64,6 +69,8 @@ const Actions = {
     type: Types.SET_GET_PROJECT_LOADING,
     payload: isLoading,
   }),
+
+  //Stages
   setPostStageError: (errorMsg: string) => ({
     type: Types.SET_POST_STAGE_ERROR,
     payload: errorMsg,
@@ -71,6 +78,18 @@ const Actions = {
   setPostStageLoading: (isLoading: boolean) => ({
     type: Types.SET_POST_STAGE_LOADING,
     payload: isLoading,
+  }),
+  setGetStagesError: (errorMsg: string) => ({
+    type: Types.SET_GET_STAGES_ERROR,
+    payload: errorMsg,
+  }),
+  setGetStagesLoading: (isLoading: string) => ({
+    type: Types.SET_GET_STAGES_LOADING,
+    payload: isLoading,
+  }),
+  setStages: (payload: object) => ({
+    type: Types.SET_STAGES,
+    payload: payload,
   }),
 
   //sagas
@@ -88,6 +107,9 @@ const Actions = {
   postStage: (payload: object) => ({
     type: Types.POST_STAGE,
     payload,
+  }),
+  getStages: () => ({
+    type: Types.GET_STAGES,
   }),
 };
 
