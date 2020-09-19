@@ -4,7 +4,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "../AppBar";
-import Sidedrawer from "./Sidedrawer/Sidedrawer";
+import Sidedrawer from "./sidedrawer/Sidedrawer";
 import Loader from "../../components/common/Loader";
 import { useParams } from "react-router-dom";
 import Snackbar from "../../components/common/Snackbar";

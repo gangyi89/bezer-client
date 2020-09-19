@@ -13,7 +13,7 @@ export default function* updateProfile({ payload }) {
     yield put(actions.userSession.setUpdateProfileLoading(true));
     yield put(actions.userSession.setUpdateProfileError(""));
 
-    const result = yield call(apiWrapper, {
+    yield call(apiWrapper, {
       api: postProfileApi,
       body,
     });

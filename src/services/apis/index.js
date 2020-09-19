@@ -47,6 +47,9 @@ function postStageApi({ headers, body }) {
 function getStagesApi({ headers, params }) {
   return axios.get(URL + "stages", { headers: headers, params: params });
 }
+function deleteStageApi({ headers, path }) {
+  return axios.delete(URL + `stages/${path.id}`, { headers: headers });
+}
 
 export {
   createProjectApi,
@@ -57,4 +60,5 @@ export {
   getProfileApi,
   postStageApi,
   getStagesApi,
+  deleteStageApi,
 };

@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import Button from "../../../components/common/Button";
-import Link from "@material-ui/core/Link";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +35,7 @@ const Profile = (props) => {
   var inputRefs = [];
   const {
     getProfileHandler,
-    getProfileError,
+    // getProfileError,
     getProfileLoading,
     profile,
     submitHandler,

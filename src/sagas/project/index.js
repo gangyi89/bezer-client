@@ -7,6 +7,7 @@ import getProjects from "./getProjects";
 import getProject from "./getProject";
 import postStage from "./postStage";
 import getStages from "./getStages";
+import deleteStage from "./deleteStage";
 
 function* watchCreateProjectRequest() {
   yield takeLatest(types.project.CREATE_PROJECT, createProject);
@@ -28,10 +29,15 @@ function* watchGetStagesRequest() {
   yield takeLatest(types.project.GET_STAGES, getStages);
 }
 
+function* watchDeleteStageRequest() {
+  yield takeLatest(types.project.DELETE_STAGE, deleteStage);
+}
+
 export default [
   watchCreateProjectRequest(),
   watchGetProjectsRequest(),
   watchGetProjectRequest(),
   watchPostStageRequest(),
   watchGetStagesRequest(),
+  watchDeleteStageRequest(),
 ];

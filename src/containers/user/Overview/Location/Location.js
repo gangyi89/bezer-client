@@ -4,7 +4,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import locationImg from "../../../../assets/images/location.png";
-import Button from "../../../../components/common/Button";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,18 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Location = () => {
   const classes = useStyles();
-
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState("default value");
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
 
   return (
     <Paper>

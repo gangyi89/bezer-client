@@ -1,7 +1,6 @@
 import { put, call, select } from "redux-saga/effects";
 import { postStageApi } from "../../services/apis";
 import apiWrapper from "../../services/apis/apiWrapper";
-import { push } from "connected-react-router";
 import { actions, selectors } from "../../stores";
 
 //User login may fail die to user new password required
@@ -19,7 +18,7 @@ export default function* createProject({ payload }) {
     });
     yield call(payload.handleClose);
     yield call(payload.clearState);
-    yield call(payload.updateTable, payload.data);
+    yield call(payload.updateTable, result);
   } catch (e) {
     yield put(actions.project.setPostStageError(e.message));
   } finally {

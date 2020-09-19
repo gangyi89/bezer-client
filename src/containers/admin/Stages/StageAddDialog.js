@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Button from "../../../components/common/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
 const StageAddDialog = (props) => {
   const { item } = props;
-  const [id, setId] = useState("");
+  const [name, setName] = useState("");
   const [level, setLevel] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setId(item.id);
+    setName(item.name);
     setDescription(item.description);
     setLevel(item.level);
   }, [item]);
   const updateName = (event) => {
-    setId(event.target.value);
+    setName(event.target.value);
   };
   const updateLevel = (event) => {
     setLevel(event.target.value);
@@ -31,13 +30,13 @@ const StageAddDialog = (props) => {
   };
 
   const clearState = () => {
-    setId("");
+    setName("");
     setLevel("");
     setDescription("");
   };
 
   const submitHandler = () => {
-    const data = { id, level, description };
+    const data = { id: item.id, name, level, description };
     const { handleClose, onAdd, onUpdate } = props;
     console.log(item);
     props.postStageHandler({
@@ -48,7 +47,7 @@ const StageAddDialog = (props) => {
     });
   };
 
-  console.log(`item data is ${id}`);
+  console.log(`item data is ${name}`);
 
   return (
     <div>
@@ -69,7 +68,7 @@ const StageAddDialog = (props) => {
                 type="text"
                 variant="outlined"
                 fullWidth
-                value={id}
+                value={name}
                 onChange={updateName}
               />
             </Grid>
@@ -118,7 +117,7 @@ const StageAddDialog = (props) => {
             color="primary"
             isLoading={props.postStageLoading}
           >
-            Create
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
@@ -126,4 +125,4 @@ const StageAddDialog = (props) => {
   );
 };
 
-export default StageAddDialog;
+export default memo(StageAddDialog);

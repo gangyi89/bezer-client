@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import { selectors, actions } from "../../../stores";
 
-import Dashboard from "../../../layout/Dashboard";
+import Dashboard from "../../../layout/dashboard";
 
 const mapStateToProps = (state) => ({
   dashboardLoading: selectors.project.dashboardLoading(state),

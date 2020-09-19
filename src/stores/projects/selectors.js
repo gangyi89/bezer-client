@@ -46,3 +46,11 @@ export const getStagesError = R.pathOr(undefined, [
   storeName,
   "getStagesError",
 ]);
+export const deleteStageLoading = R.pathOr(undefined, [
+  storeName,
+  "deleteStageLoading",
+]);
+export const deleteStageError = R.pathOr(undefined, [
+  storeName,
+  "deleteStageError",
+]);

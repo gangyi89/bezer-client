@@ -1,31 +1,42 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import HeaderBar from "../../../components/common/HeaderBar";
+import { HeaderBar, Table } from "../../../components/common";
 import Immutable from "seamless-immutable";
-import Grid from "@material-ui/core/Grid";
-import { LoaderSimple } from "../../../components/common";
-
-import StagesTable from "./StagesTable";
 import StageAddDialog from "./StageAddDialog";
-import getStages from "../../../sagas/project/getStages";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: theme.spacing(2),
-
-    [theme.breakpoints.down("sm")]: {
-      justifyContent: "center",
-    },
-  },
-}));
+import StageDeleteDialog from "./StageDeleteDialog";
 
 const Setup = (props) => {
-  const classes = useStyles();
   const { getStagesHandler, getStagesLoading, stages } = props;
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState("");
+  const [openDelete, setOpenDelete] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState({});
+  const columns = [
+    {
+      title: "Level",
+      field: "level",
+      type: "numeric",
+      width: "100px",
+    },
+    {
+      title: "Name",
+      field: "name",
+      width: "250px",
+    },
+    {
+      title: "Description",
+      field: "description",
+    },
+  ];
+
+  const handleDeleteRequest = (item) => {
+    setSelectedItem(item);
+    setOpenDelete(true);
+  };
+
+  const handleDeleteClose = () => {
+    setOpenDelete(false);
+  };
 
   const handleAddRequest = () => {
     setSelectedItem("");
@@ -33,7 +44,6 @@ const Setup = (props) => {
   };
 
   const handleEditRequest = (item) => {
-    console.log(item);
     setSelectedItem(item);
     setOpen(true);
   };
@@ -42,6 +52,7 @@ const Setup = (props) => {
     setOpen(false);
   };
 
+  //should only be fired once
   useEffect(() => {
     getStagesHandler();
   }, [getStagesHandler]);
@@ -64,14 +75,21 @@ const Setup = (props) => {
     setData(updatedData);
   };
 
+  const onDelete = (item) => {
+    const updatedData = data.filter((row) => item.id !== row.id);
+    setData(updatedData);
+  };
+
   return (
     <>
       <HeaderBar text="Stages" />
-      <StagesTable
+      <Table
         addHandler={handleAddRequest}
         editHandler={handleEditRequest}
+        deleteHandler={handleDeleteRequest}
         isLoading={getStagesLoading}
         data={data}
+        columns={columns}
       />
       <StageAddDialog
         handleClose={handleClose}
@@ -82,6 +100,15 @@ const Setup = (props) => {
         onAdd={onAdd}
         onUpdate={onUpdate}
         item={selectedItem}
+      />
+      <StageDeleteDialog
+        deleteStageHandler={props.deleteStageHandler}
+        deleteStageLoading={props.deleteStageLoading}
+        deleteStageError={props.deleteStageError}
+        open={openDelete}
+        handleClose={handleDeleteClose}
+        item={selectedItem}
+        onDelete={onDelete}
       />
     </>
   );
@@ -94,6 +121,9 @@ Setup.propTypes = {
   getStagesError: PropTypes.string.isRequired,
   getStagesLoading: PropTypes.bool.isRequired,
   getStagesHandler: PropTypes.func.isRequired,
+  deleteStageHandler: PropTypes.func.isRequired,
+  deleteStageError: PropTypes.string.isRequired,
+  deleteStageLoading: PropTypes.bool.isRequired,
   stages: PropTypes.array.isRequired,
 };
 export default Setup;

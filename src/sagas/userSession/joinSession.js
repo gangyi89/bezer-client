@@ -28,7 +28,7 @@ export default function* joinSession({ payload }) {
         projectId: result.projectId,
       };
 
-      const createResult = yield call(apiWrapper, {
+      yield call(apiWrapper, {
         api: postProfileApi,
         body: createProfileBody,
       });

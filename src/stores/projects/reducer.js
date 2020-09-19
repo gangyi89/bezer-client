@@ -16,13 +16,16 @@ const initialState = Immutable({
   getProjectLoadingError: "",
   getProjectLoadingStatus: false,
 
-  dashboardLoadingStatus: false,
+  dashboardLoadingStatus: true,
 
   postStageLoading: false,
   postStageError: "",
 
   getStagesLoading: false,
   getStagesError: "",
+
+  deleteStageLoading: false,
+  deleteStageError: "",
 });
 
 function projectReducer(state = initialState, action) {
@@ -55,6 +58,10 @@ function projectReducer(state = initialState, action) {
       return state.set("getStagesError", action.payload);
     case Types.SET_STAGES:
       return state.set("stages", action.payload);
+    case Types.SET_DELETE_STAGE_LOADING:
+      return state.set("deleteStageLoading", action.payload);
+    case Types.SET_DELETE_STAGE_ERROR:
+      return state.set("deleteStageError", action.payload);
     default:
       return state;
   }

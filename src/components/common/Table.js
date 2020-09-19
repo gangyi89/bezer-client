@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MaterialTable from "material-table";
-import Button from "@material-ui/core/Button";
-
-import IconButton from "@material-ui/core/IconButton";
-import FolderIcon from "@material-ui/icons/Folder";
+import PropTypes from "prop-types";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -18,37 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StagesTable = (props) => {
+const Table = (props) => {
   const data = JSON.parse(JSON.stringify(props.data));
+  const columns = props.columns;
 
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    columns: [
-      {
-        title: "Level",
-        field: "level",
-        type: "numeric",
-        width: "100px",
-      },
-      {
-        title: "Name",
-        field: "id",
-        width: "250px",
-      },
-      {
-        title: "Description",
-        field: "description",
-      },
-    ],
-  });
-
   return (
     <div className={classes.root}>
       <MaterialTable
         isLoading={props.isLoading}
         title=""
-        columns={state.columns}
-        data={data}
+        columns={columns}
+        data={data || []}
         actions={[
           {
             icon: (props) => <EditIcon color="action" />,
@@ -58,11 +36,11 @@ const StagesTable = (props) => {
           {
             icon: (props) => <DeleteIcon color="action" />,
             tooltip: "remove item",
-            onClick: (event, rowData) => alert("You delete " + rowData.name),
+            onClick: (event, rowData) => props.deleteHandler(rowData),
           },
           {
             icon: "add",
-            tooltip: "Add User",
+            tooltip: "Add item",
             isFreeAction: true,
             onClick: (event) => props.addHandler(),
           },
@@ -72,4 +50,9 @@ const StagesTable = (props) => {
   );
 };
 
-export default StagesTable;
+Table.propTypes = {
+  addHandler: PropTypes.func.isRequired,
+  editHandler: PropTypes.func.isRequired,
+};
+
+export default Table;
